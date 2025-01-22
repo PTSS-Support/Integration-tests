@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: run-integration-tests
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: run-tests
+      image: python:3.9-slim
+      script: |
+        #!/bin/bash
+        cd $(workspaces.source.path)
+
+        # Install dependencies
+        pip install -e .
+
+        # Run integration tests
+        python -m pytest tests/integration -v --junitxml=test-results/integration-tests.xml
+      env:
+        - name: API_URL
+          valueFrom:
+            secretKeyRef:
+              name: integration-tests-secrets
+              key: API_URL
+        - name: TEST_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: integration-tests-secrets
+              key: TEST_EMAIL
+        - name: TEST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: integration-tests-secrets
+              key: TEST_PASSWORD

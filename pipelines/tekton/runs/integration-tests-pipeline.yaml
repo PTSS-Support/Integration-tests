@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: integration-tests-run
+spec:
+  pipelineRef:
+    name: integration-tests-pipeline
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+  serviceAccountName: pipeline
+  podTemplate:
+    envFrom:
+      - secretRef:
+          name: integration-tests-secrets
