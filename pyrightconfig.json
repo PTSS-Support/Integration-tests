@@ -5,6 +5,8 @@
     "analysis": {
         "extraPaths": [
             "src"
-        ]
+        ],
+        "typeCheckingMode": "basic",
+        "useLibraryCodeForTypes": true
     }
 }

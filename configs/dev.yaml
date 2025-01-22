@@ -1,0 +1,10 @@
+api:
+  base_url: "https://kong-gateway-hotel-dev.apps.inholland.hcs-lab.nl"
+  timeout: 30
+  endpoints:
+    # Send a POST request to this endpoint to login
+    login: "/user-service/users/login"
+    # Send a POST request to this endpoint to send a message
+    message: "groupchat-service/groups/messages"
+    # Send a GET request to this endpoint to get all tools
+    tools: "tool-service/tools"
