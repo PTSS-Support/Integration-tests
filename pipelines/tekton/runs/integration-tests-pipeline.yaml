@@ -15,7 +15,3 @@ spec:
             requests:
               storage: 1Gi
   serviceAccountName: pipeline
-  podTemplate:
-    envFrom:
-      - secretRef:
-          name: integration-tests-secrets
